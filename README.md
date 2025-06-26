@@ -1,39 +1,44 @@
-BouncyCastleSRPSwift
+# BouncyCastleSRPSwift
 
-A lightweight, modular Swift implementation of the Secure Remote Password protocol (SRP-6a), inspired by Bouncy Castle.
+A lightweight, modular Swift implementation of the [Secure Remote Password protocol (SRP-6a)](https://datatracker.ietf.org/doc/html/rfc5054), inspired by Bouncy Castle.
 
 This library allows secure mutual authentication and shared key establishment without exposing passwords, ideal for client-server communication over insecure channels.
 
-⸻
+---
 
-Features
-	•	🔐 Pure Swift SRP-6a implementation (Client and Server)
-	•	🔐 AES-GCM payload encryption using the SRP-derived session key
-	•	📦 Codable support for easy payload serialization
-	•	📐 Multiple RFC 5054-compliant standard group parameters
-	•	🧩 Modular and extensible architecture
+## Features
 
-⸻
+- 🔐 Pure Swift SRP-6a implementation (Client and Server)
+- 🔐 AES-GCM payload encryption using the SRP-derived session key
+- 📦 Codable support for easy payload serialization
+- 📐 Multiple RFC 5054-compliant standard group parameters
+- 🧩 Modular and extensible architecture
 
-Installation
+---
 
-Use Swift Package Manager. Add the following to your Package.swift:
+## Installation
 
+Use Swift Package Manager. Add the following to your `Package.swift`:
+
+```swift
 .package(url: "https://github.com/yourusername/BouncyCastleSRPSwift.git", from: "1.0.0")
+```
 
 Then import where needed:
 
+```swift
 import BouncyCastleSRPSwift
+```
 
+---
 
-⸻
+## Components
 
-Components
-
-SRP6Client
+### SRP6Client
 
 Client-side SRP logic:
 
+```swift
 let client = SRP6Client(
     group: SRP6StandardGroups.RFC5054_2048,
     digest: SHA256Digest(),
@@ -50,11 +55,13 @@ let M1 = try client.calculateClientEvidenceMessage()
 // Send M1, receive M2
 let valid = try client.verifyServerEvidenceMessage(serverM2: M2)
 let sessionKey = try client.calculateSessionKey()
+```
 
-SRP6Server
+### SRP6Server
 
 Server-side SRP logic:
 
+```swift
 let server = SRP6Server(
     N: group.N,
     g: group.G,
@@ -68,44 +75,50 @@ let S = try server.calculateSecret(clientA: A)
 let valid = try server.verifyClientEvidenceMessage(clientM1: M1)
 let M2 = try server.calculateServerEvidenceMessage()
 let sessionKey = try server.calculateSessionKey()
+```
 
-SRP6StandardGroups
+### SRP6StandardGroups
 
 RFC 5054-compliant Diffie-Hellman group parameters:
 
+```swift
 let group = SRP6StandardGroups.RFC5054_2048
+```
 
 Groups supported: 1024, 1536, 2048, 3072, 4096, 6144, 8192 bits
 
-SRPPayloadEncryptor
+### SRPPayloadEncryptor
 
-Encrypts any Codable payload using AES-GCM:
+Encrypts any `Codable` payload using AES-GCM:
 
+```swift
 let encryptor = SRPPayloadEncryptor(srpSharedSecret: sessionKeyData)
 let (encryptedData, iv) = try encryptor.encryptPayload(myCodableModel)
+```
 
+---
 
-⸻
+## Requirements
 
-Requirements
-	•	Swift 5.8+
-	•	iOS 13+ / macOS 10.15+
+- Swift 5.8+
+- iOS 13+ / macOS 10.15+
 
-⸻
+---
 
-License
+## License
 
 MIT License
 
-⸻
+---
 
-Acknowledgments
-	•	Bouncy Castle
-	•	RFC 5054
+## Acknowledgments
 
-⸻
+- [Bouncy Castle](https://www.bouncycastle.org/)
+- [RFC 5054](https://datatracker.ietf.org/doc/html/rfc5054)
 
-TODO
-	•	DecryptPayload method
-	•	SRP Verifier utility generator
-	•	Add Unit Tests and CI
+---
+
+## TODO
+
+-
+
