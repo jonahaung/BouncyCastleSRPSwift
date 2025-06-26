@@ -1,21 +1,28 @@
+//
+//  SRP6Client.swift
+//  BouncyCastleSRPSwift
+//
+//  Created by Aung Ko Min on 26/6/25.
+//
+
 import Foundation
 import CryptoKit
 import BigInt
 
-class SRP6Client {
+public final class SRP6Client {
 
 	// MARK: - Constants
-	private let N: BigInt
-	private let g: BigInt
-	private let digest: SHA256Digest
-	private let random: SecureRandom
+	public let N: BigInt
+	public let g: BigInt
+	public let digest: SHA256Digest
+	public let random: SecureRandom
 
 	// MARK: - Client Private Values
-	private let a: BigInt
-	private let x: BigInt
+	public let a: BigInt
+	public let x: BigInt
 
 	// MARK: - Public Values
-	private(set) var A: BigInt
+	public private(set) var A: BigInt
 
 	// MARK: - Server Values
 	private var B: BigInt?
@@ -29,7 +36,7 @@ class SRP6Client {
 
 	// MARK: - Initialization
 
-	init(
+	public init(
 		N: BigInt,
 		g: BigInt,
 		digest: SHA256Digest,
@@ -54,7 +61,7 @@ class SRP6Client {
 		self.A = g.power(a, modulus: N)
 	}
 
-	convenience init(
+	public convenience init(
 		group: SRP6GroupParameters,
 		digest: SHA256Digest,
 		random: SecureRandom,
@@ -75,11 +82,11 @@ class SRP6Client {
 
 	// MARK: - Authentication Flow
 
-	func startAuthentication() -> BigInt {
+	public func startAuthentication() -> BigInt {
 		return A
 	}
 
-	func calculateSecret(serverB: BigInt) throws -> BigInt {
+	public func calculateSecret(serverB: BigInt) throws -> BigInt {
 		let B = try SRP6Util.validatePublicValue(N: N, val: serverB)
 		let u = SRP6Util.calculateU(digest: digest, N: N, A: A, B: B)
 		let S = calculateS(B: B, u: u)
@@ -100,7 +107,7 @@ class SRP6Client {
 
 	// MARK: - Evidence Messages
 
-	func calculateClientEvidenceMessage() throws -> BigInt {
+	public func calculateClientEvidenceMessage() throws -> BigInt {
 		guard let B = B, let S = S else {
 			throw CryptoError.missingData("Cannot compute M1: missing required values (B, S)")
 		}
@@ -110,7 +117,7 @@ class SRP6Client {
 		return M1
 	}
 
-	func verifyServerEvidenceMessage(serverM2: BigInt) throws -> Bool {
+	public func verifyServerEvidenceMessage(serverM2: BigInt) throws -> Bool {
 		guard let M1 = M1, let S = S else {
 			throw CryptoError.missingData("Cannot verify M2: missing required values (M1, S)")
 		}
@@ -133,7 +140,7 @@ class SRP6Client {
 
 	// MARK: - Session Key
 
-	func calculateSessionKey() throws -> BigInt {
+	public func calculateSessionKey() throws -> BigInt {
 		guard let S = S, M1 != nil, M2 != nil else {
 			throw CryptoError.missingData("Cannot compute session key: missing required values (S, M1, M2)")
 		}
@@ -143,9 +150,7 @@ class SRP6Client {
 		return key
 	}
 
-	// MARK: - Accessors
-
-	func getSessionKey() throws -> BigInt {
+	public func getSessionKey() throws -> BigInt {
 		guard let key = sessionKey else {
 			throw CryptoError.missingData("Session key not yet calculated")
 		}

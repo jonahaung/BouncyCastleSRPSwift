@@ -1,20 +1,36 @@
+//
+//  DataHasher.swift
+//  BouncyCastleSRPSwift
+//
+//  Created by Aung Ko Min on 26/6/25.
+//
+
 import Foundation
 import CryptoKit
 
-protocol DataHasher {
+public protocol DataHasher {
 	mutating func update(data: Data)
 	func finalize() -> Data
 }
 
-struct SHA256Hasher: DataHasher {
+public struct SHA256Hasher: DataHasher {
 	private var hasher: SHA256
-	init() {
+
+	public init() {
 		self.hasher = SHA256()
 	}
-	mutating func update(data: Data) {
+
+	public mutating func update(data: Data) {
 		hasher.update(data: data)
 	}
-	func finalize() -> Data {
+
+	public func finalize() -> Data {
 		Data(hasher.finalize())
 	}
 }
+
+/*
+ var hasher = SHA256Hasher()
+ hasher.update(data: Data("hello".utf8))
+ let digest = hasher.finalize()
+ */

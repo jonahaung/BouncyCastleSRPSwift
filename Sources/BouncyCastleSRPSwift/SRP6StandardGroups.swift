@@ -1,7 +1,15 @@
+//
+//  SRP6StandardGroups.swift
+//  BouncyCastleSRPSwift
+//
+//  Created by Aung Ko Min on 26/6/25.
+//
+
+
 import Foundation
 import BigInt
 
-enum SRP6StandardGroups {
+public enum SRP6StandardGroups {
     private static func fromHex(_ hex: String) -> BigInt {
         // Remove any whitespace or newlines from the hex string
         let cleanedHex = hex.replacingOccurrences(of: "\\s", with: "", options: .regularExpression)
@@ -23,8 +31,8 @@ enum SRP6StandardGroups {
         FD5138FE8376435B9FC61D2FC0EB06E3
         """
     private static let RFC5054_1024_g = "02"
-    static let RFC5054_1024 = fromNG(RFC5054_1024_N, RFC5054_1024_g)
-    
+	@MainActor public static let RFC5054_1024 = fromNG(RFC5054_1024_N, RFC5054_1024_g)
+
     private static let RFC5054_1536_N = """
         9DEF3CAFB939277AB1F12A8617A47BBBDBA51DF499AC4C80BEEEA961\
         4B19CC4D5F4F5F556E27CBDE51C6A94BE4607A291558903BA0D0F843\
@@ -35,7 +43,7 @@ enum SRP6StandardGroups {
         8CE7A28C2442C6F315180F93499A234DCF76E3FED135F9BB
         """
     private static let RFC5054_1536_g = "02"
-    static let RFC5054_1536 = fromNG(RFC5054_1536_N, RFC5054_1536_g)
+	@MainActor public static let RFC5054_1536 = fromNG(RFC5054_1536_N, RFC5054_1536_g)
 
     private static let RFC5054_2048_N = """
         AC6BDB41324A9A9BF166DE5E1389582FAF72B6651987EE07FC319294\
@@ -50,8 +58,8 @@ enum SRP6StandardGroups {
         9E4AFF73
         """
     private static let RFC5054_2048_g = "02"
-    static let RFC5054_2048 = fromNG(RFC5054_2048_N, RFC5054_2048_g)
-    
+	@MainActor public static let RFC5054_2048 = fromNG(RFC5054_2048_N, RFC5054_2048_g)
+
     private static let RFC5054_3072_N = """
         FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08\
         8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B\
@@ -69,8 +77,8 @@ enum SRP6StandardGroups {
         E0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF
         """
     private static let RFC5054_3072_g = "05"
-    static let RFC5054_3072 = fromNG(RFC5054_3072_N, RFC5054_3072_g)
-    
+	@MainActor public static let RFC5054_3072 = fromNG(RFC5054_3072_N, RFC5054_3072_g)
+
     private static let RFC5054_4096_N = """
         FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08\
         8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B\
@@ -93,8 +101,8 @@ enum SRP6StandardGroups {
         FFFFFFFFFFFFFFFF
         """
     private static let RFC5054_4096_g = "05"
-    static let RFC5054_4096 = fromNG(RFC5054_4096_N, RFC5054_4096_g)
-    
+	@MainActor public static let RFC5054_4096 = fromNG(RFC5054_4096_N, RFC5054_4096_g)
+
     private static let RFC5054_6144_N = """
         FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08\
         8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B\
@@ -126,8 +134,8 @@ enum SRP6StandardGroups {
         6DCC4024FFFFFFFFFFFFFFFF
         """
     private static let RFC5054_6144_g = "05"
-    static let RFC5054_6144 = fromNG(RFC5054_6144_N, RFC5054_6144_g)
-    
+	@MainActor public static let RFC5054_6144 = fromNG(RFC5054_6144_N, RFC5054_6144_g)
+
     private static let RFC5054_8192_N = """
         FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08\
         8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B\
@@ -168,5 +176,5 @@ enum SRP6StandardGroups {
         60C980DD98EDD3DFFFFFFFFFFFFFFFFF
         """
     private static let RFC5054_8192_g = "13"
-    static let RFC5054_8192 = fromNG(RFC5054_8192_N, RFC5054_8192_g)
+	@MainActor public static let RFC5054_8192 = fromNG(RFC5054_8192_N, RFC5054_8192_g)
 }

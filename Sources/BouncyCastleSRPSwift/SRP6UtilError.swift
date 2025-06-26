@@ -1,8 +1,15 @@
+//
+//  SRP6UtilError.swift
+//  BouncyCastleSRPSwift
+//
+//  Created by Aung Ko Min on 26/6/25.
+//
+
 import Foundation
 import CryptoKit
 import BigInt
 
-enum SRP6UtilError: Error {
+public enum SRP6UtilError: Error {
 	case invalidPublicValue
 	case invalidBigIntValue
 	case invalidHexStringValue
@@ -12,7 +19,7 @@ enum SRP6UtilError: Error {
 	case m2VaricationFailed
 }
 
-enum CryptoError: Error {
+public enum CryptoError: Error {
 	case invalidPublicValue
 	case missingData(String)
 	case verificationFailed

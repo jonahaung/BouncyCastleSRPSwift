@@ -1,3 +1,11 @@
+//
+//  SRP6Util.swift
+//  BouncyCastleSRPSwift
+//
+//  Created by Aung Ko Min on 26/6/25.
+//
+
+
 import Foundation
 import CryptoKit
 import BigInt

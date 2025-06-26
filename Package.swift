@@ -4,21 +4,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "BouncyCastleSRPSwift",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "BouncyCastleSRPSwift",
-            targets: ["BouncyCastleSRPSwift"]),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "BouncyCastleSRPSwift"),
-        .testTarget(
-            name: "BouncyCastleSRPSwiftTests",
-            dependencies: ["BouncyCastleSRPSwift"]
-        ),
-    ]
+	name: "BouncyCastleSRPSwift",
+	platforms: [.iOS(.v14)],
+	products: [
+		.library(
+			name: "BouncyCastleSRPSwift",
+			targets: ["BouncyCastleSRPSwift"]),
+	],
+	dependencies: [
+		.package(url: "https://github.com/attaswift/BigInt.git", from: "5.4.0")
+	],
+	targets: [
+		.target(
+			name: "BouncyCastleSRPSwift",
+			dependencies: [
+				.product(name: "BigInt", package: "BigInt")
+
+			]
+		),
+		.testTarget(
+			name: "BouncyCastleSRPSwiftTests",
+			dependencies: ["BouncyCastleSRPSwift"]
+		),
+	]
 )
